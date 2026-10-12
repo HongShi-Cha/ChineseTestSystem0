@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- Backend connected: 已对接 Python(FastAPI) + MySQL 后端，数据来自 /api/**，字段为 Python 下划线命名。纯前端无后端演示版备份见 js/main.mock.js。 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考试中 - 国语水平测试系统</title>
+  <link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+</head>
+<body data-page="exam">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom sticky-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="dashboard.html"><i class="bi bi-mortarboard-fill me-2"></i>国语水平测试系统</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navExam">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navExam">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">我的考试</a></li>
+          <li class="nav-item"><a class="nav-link" href="history.html">历史成绩</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <span class="nav-link"><i class="bi bi-person-circle me-1"></i><span data-user-name>同学</span>（<span data-user-no></span>）</span>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#" data-action="logout"><i class="bi bi-box-arrow-right me-2"></i>退出</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 考试倒计时栏 -->
+  <div class="bg-white border-bottom">
+    <div class="container py-3">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+        <div class="fw-semibold">
+          <i class="bi bi-stopwatch me-1 text-primary-custom"></i>本场考试剩余：
+          <span id="examClock" class="fs-5 fw-bold text-primary-custom">13分00秒</span>
+        </div>
+        <div class="text-secondary small">模拟考试 · 满分 100 分 · 共 4 道大题（倒计时跨页面不重置）</div>
+      </div>
+      <div class="progress" style="height: 10px;">
+        <div id="examProgress" class="progress-bar bg-primary-custom" style="width: 0%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container py-4">
+    <div class="row g-3">
+
+      <!-- 左：题型导航 + 考生信息 -->
+      <div class="col-lg-3">
+        <div class="card mb-3">
+          <div class="card-header"><i class="bi bi-list-check me-2"></i>题型导航</div>
+          <div class="card-body p-2">
+            <div class="list-group list-group-flush" id="examNav"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><i class="bi bi-person-vcard me-2"></i>考生信息</div>
+          <div class="card-body py-3 small">
+            <div class="d-flex justify-content-between mb-2"><span class="text-secondary">姓名</span><span class="fw-semibold" id="stuName">-</span></div>
+            <div class="d-flex justify-content-between mb-2"><span class="text-secondary">学号</span><span class="fw-semibold" id="stuNo">-</span></div>
+            <div class="d-flex justify-content-between"><span class="text-secondary">状态</span><span class="fw-semibold text-primary-custom">进行中</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中：题目与操作区 -->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
+            <span><i class="bi bi-pencil-square me-2"></i>当前题目：<span class="fw-bold" id="examTitle">加载中…</span></span>
+            <span class="badge text-bg-light text-primary-custom border" id="examMeta"></span>
+          </div>
+          <div class="card-body">
+            <div id="questionBox" class="mb-4"></div>
+            <div class="alert alert-light border small mb-4" id="examTip"></div>
+            <div class="text-center border-top pt-4">
+              <div class="d-grid d-sm-flex gap-3 justify-content-center">
+                <button id="btnStartRec" class="btn btn-success btn-lg px-4"><i class="bi bi-mic-fill me-2"></i>开始录音</button>
+                <button id="btnStopRec" class="btn btn-danger btn-lg px-4" disabled><i class="bi bi-stop-circle-fill me-2"></i>停止并提交</button>
+              </div>
+              <!-- 提交结果 / 交卷提示由 main.js 动态填充 -->
+              <div id="submitResult"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：状态区 -->
+      <div class="col-lg-3">
+        <div class="card mb-3">
+          <div class="card-header"><i class="bi bi-info-circle me-2"></i>当前题型信息</div>
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush" id="typeInfo"></ul>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header"><i class="bi bi-mic me-2"></i>录音状态</div>
+          <div class="card-body">
+            <div id="recState" class="small text-secondary"><i class="bi bi-circle me-1"></i>未开始</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><i class="bi bi-lightbulb me-2"></i>系统提示</div>
+          <div class="card-body small text-secondary">
+            <ul class="mb-0 ps-3">
+              <li class="mb-1">请保持语速平稳、声音清晰。</li>
+              <li class="mb-1">点击开始后一次性读完，结束后点"停止并提交"。</li>
+              <li>每提交一题都会实时评分，四题都提交后自动交卷。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer py-3 mt-4">
+    <div class="container text-center">版权所有 © 2026 国语水平测试系统 V1.0</div>
+  </footer>
+
+  <script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

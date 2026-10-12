@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- Backend connected: 已对接 Python(FastAPI) + MySQL 后端，数据来自 /api/**，字段为 Python 下划线命名。纯前端无后端演示版备份见 js/main.mock.js。 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>国语水平测试系统 - 入口页</title>
+  <link href="assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="home" class="d-flex align-items-center min-vh-100 py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <img src="assets/logo.svg" alt="Logo" width="72" height="72" class="rounded mb-3 shadow-sm">
+      <h1 class="fw-bold text-primary-custom">国语水平测试系统</h1>
+      <p class="text-secondary">Bootstrap 5 + 原生 JavaScript · 已对接 Python(FastAPI) + MySQL 后端</p>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-5">
+        <div class="card h-100 text-center p-4">
+          <div class="stat-icon bg-primary-custom text-white mx-auto mb-3"><i class="bi bi-mortarboard fs-4"></i></div>
+          <h5 class="fw-bold">学生测试端</h5>
+          <p class="text-secondary small">登录/注册、模拟考试（录音评分）、成绩报告、历史成绩曲线</p>
+          <a href="login.html" class="btn btn-primary mt-auto">登录学生端 <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card h-100 text-center p-4">
+          <div class="stat-icon bg-success text-white mx-auto mb-3"><i class="bi bi-clipboard-data fs-4"></i></div>
+          <h5 class="fw-bold">管理端</h5>
+          <p class="text-secondary small">后台统计、题库管理（增删改查 / Excel 导入）、学生成绩管理</p>
+          <a href="login.html" class="btn btn-outline-primary mt-auto">登录管理端 <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-4 p-3 bg-light border-0">
+      <p id="homeTip" class="small text-secondary text-center mb-2 d-none"></p>
+      <p class="small text-secondary text-center mb-0">
+        <i class="bi bi-info-circle me-1"></i> 请通过后端服务访问本系统（启动后端后打开 <code>http://127.0.0.1:8080/</code>）。
+        演示账号：管理员 admin / admin123；学生 2024001 / 123456。
+      </p>
+    </div>
+  </div>
+  <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

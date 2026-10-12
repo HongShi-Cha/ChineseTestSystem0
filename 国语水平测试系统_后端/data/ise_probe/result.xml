@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <xml_result>
+      <read_syllable lan="cn" type="study" version="7,0,0,1024">
+          <rec_paper>
+              <read_syllable beg_pos="0" content="白买家听你。" end_pos="204" except_info="0" fluency_score="0.000000" integrity_score="0.000000" phone_score="50.000000" time_len="204" tone_score="60.000000" total_score="55.000000">
+                  <sentence beg_pos="0" content="白买家听你" end_pos="204" time_len="204">
+                      <word beg_pos="0" content="白买家" end_pos="71" symbol="bai2mai3jia1" time_len="71">
+                          <syll beg_pos="0" content="silv" dp_message="0" end_pos="12" rec_node_type="silv" time_len="12">
+                              <phone beg_pos="0" content="silv" dp_message="0" end_pos="12" rec_node_type="silv" time_len="12"></phone>
+                          </syll>
+                          <syll beg_pos="12" content="白" dp_message="0" end_pos="31" rec_node_type="paper" symbol="bai2" time_len="19">
+                              <phone beg_pos="12" content="b" dp_message="0" end_pos="19" is_yun="0" perr_level_msg="0" perr_msg="0" rec_node_type="paper" time_len="7"></phone>
+                              <phone beg_pos="19" content="ai" dp_message="0" end_pos="31" is_yun="1" mono_tone="TONE2" perr_level_msg="0" perr_msg="1" rec_node_type="paper" time_len="12"></phone>
+                          </syll>
+                          <syll beg_pos="31" content="买" dp_message="0" end_pos="52" rec_node_type="paper" symbol="mai3" time_len="21">
+                              <phone beg_pos="31" content="m" dp_message="0" end_pos="39" is_yun="0" perr_level_msg="0" perr_msg="0" rec_node_type="paper" time_len="8"></phone>
+                              <phone beg_pos="39" content="ai" dp_message="0" end_pos="52" is_yun="1" mono_tone="TONE3" perr_level_msg="0" perr_msg="2" rec_node_type="paper" time_len="13"></phone>
+                          </syll>
+                          <syll beg_pos="52" content="家" dp_message="0" end_pos="71" rec_node_type="paper" symbol="jia1" time_len="19">
+                              <phone beg_pos="52" content="j" dp_message="0" end_pos="58" is_yun="0" perr_level_msg="0" perr_msg="1" rec_node_type="paper" time_len="6"></phone>
+                              <phone beg_pos="58" content="ia" dp_message="0" end_pos="71" is_yun="1" mono_tone="TONE1" perr_level_msg="0" perr_msg="3" rec_node_type="paper" time_len="13"></phone>
+                          </syll>
+                      </word>
+                      <word beg_pos="71" content="听你" end_pos="204" symbol="ting1ni3" time_len="133">
+                          <syll beg_pos="71" content="sil" dp_message="0" end_pos="84" rec_node_type="sil" time_len="13">
+                              <phone beg_pos="71" content="sil" dp_message="0" end_pos="84" rec_node_type="sil" time_len="13"></phone>
+                          </syll>
+                          <syll beg_pos="84" content="听" dp_message="0" end_pos="101" rec_node_type="paper" symbol="ting1" time_len="17">
+                              <phone beg_pos="84" content="t" dp_message="0" end_pos="90" is_yun="0" perr_level_msg="0" perr_msg="0" rec_node_type="paper" time_len="6"></phone>
+                              <phone beg_pos="90" content="ing" dp_message="0" end_pos="101" is_yun="1" mono_tone="TONE1" perr_level_msg="0" perr_msg="1" rec_node_type="paper" time_len="11"></phone>
+                          </syll>
+                          <syll beg_pos="101" content="你" dp_message="0" end_pos="130" rec_node_type="paper" symbol="ni3" time_len="29">
+                              <phone beg_pos="101" content="n" dp_message="0" end_pos="108" is_yun="0" perr_level_msg="0" perr_msg="1" rec_node_type="paper" time_len="7"></phone>
+                              <phone beg_pos="108" content="i" dp_message="0" end_pos="130" is_yun="1" mono_tone="TONE3" perr_level_msg="0" perr_msg="0" rec_node_type="paper" time_len="22"></phone>
+                          </syll>
+                          <syll beg_pos="130" content="silv" dp_message="0" end_pos="204" rec_node_type="silv" time_len="74">
+                              <phone beg_pos="130" content="silv" end_pos="204" time_len="74"></phone>
+                          </syll>
+                      </word>
+                  </sentence>
+              </read_syllable>
+          </rec_paper>
+      </read_syllable>
+  </xml_result>

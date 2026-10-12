@@ -1,0 +1,8 @@
+# ============================================================
+# 国语水平测试系统 - 后端开发/测试依赖（第 9 步引入 pytest）
+# 安装：pip install -r requirements-dev.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+# ============================================================
+-r requirements.txt
+
+# 单元测试
+pytest>=8.0

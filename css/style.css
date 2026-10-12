@@ -1,0 +1,158 @@
+/* ============ 国语水平测试系统 - 全局样式 ============ */
+:root {
+  --primary: #1E3A8A;      /* 主题主色：深蓝 */
+  --success: #10B981;      /* 成功/分数高亮：翠绿 */
+  --danger:  #EF4444;      /* 警告/时间紧迫：柔和红 */
+  --bg:      #F3F4F6;      /* 页面背景：浅灰 */
+  --border:  #E5E7EB;      /* 边框分割：浅灰 */
+}
+
+body {
+  background-color: var(--bg);
+  font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  color: #1f2937;
+}
+
+.text-primary-custom { color: var(--primary) !important; }
+.bg-primary-custom  { background-color: var(--primary) !important; }
+.text-success-score { color: var(--success) !important; font-weight: 700; }
+.text-danger-time   { color: var(--danger) !important; }
+.border-light-custom{ border-color: var(--border) !important; }
+
+/* 主按钮：深蓝色系 */
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: #17306e;
+  --bs-btn-hover-border-color: #17306e;
+  --bs-btn-active-bg: #142b63;
+  --bs-btn-active-border-color: #142b63;
+  --bs-btn-disabled-bg: #64748b;
+  --bs-btn-disabled-border-color: #64748b;
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-hover-bg: var(--primary);
+  --bs-btn-hover-border-color: var(--primary);
+  --bs-btn-active-bg: var(--primary);
+  --bs-btn-active-border-color: var(--primary);
+}
+
+/* 卡片 */
+.card {
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, .05);
+}
+.card-header { background-color: #fff; border-bottom: 1px solid var(--border); font-weight: 600; }
+
+/* 顶部导航 */
+.navbar-brand { font-weight: 700; letter-spacing: 1px; }
+.navbar-dark .navbar-brand { color: #fff; }
+.navbar-dark .nav-link { color: rgba(255,255,255,.82); }
+.navbar-dark .nav-link:hover { color: #fff; }
+.navbar-dark .nav-link.active { color: #fff; font-weight: 600; }
+.navbar-dark .dropdown-menu .dropdown-item.active { background-color: var(--primary); }
+
+/* 管理端侧边栏 */
+.sidebar {
+  min-height: calc(100vh - 56px);
+  background-color: var(--primary);
+}
+.sidebar .nav-link {
+  color: rgba(255,255,255,.82);
+  border-radius: .5rem;
+  margin-bottom: .25rem;
+  padding: .65rem 1rem;
+  font-size: .95rem;
+}
+.sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,.12); }
+.sidebar .nav-link.active { color: var(--primary); background-color: #fff; font-weight: 600; }
+.sidebar .nav-link i { margin-right: .55rem; }
+.sidebar .sidebar-title { color: rgba(255,255,255,.55); font-size: .75rem; letter-spacing: 2px; }
+
+/* 考试页：大字网格 */
+.exam-words {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+  gap: .55rem;
+}
+.exam-words .word-cell {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: .5rem;
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+  padding: .6rem .25rem;
+  user-select: none;
+}
+.exam-passage {
+  font-size: 1.18rem;
+  line-height: 2.2;
+  letter-spacing: .08em;
+  text-indent: 2em;
+}
+.exam-topic {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  padding: 1.5rem;
+  border: 2px dashed #c7d2fe;
+  border-radius: .75rem;
+  background: #f8faff;
+}
+
+/* 录音状态红点脉冲 */
+.pulse {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--danger);
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(239,68,68,.6); }
+  70%  { box-shadow: 0 0 0 9px rgba(239,68,68,0); }
+  100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+}
+
+/* 统计图标块 */
+.stat-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: .6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+/* 表格 */
+.table thead th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.table td { vertical-align: middle; }
+
+/* 等级徽章 */
+.badge-level { background-color: #eef2ff; color: var(--primary); }
+
+/* 页脚 */
+.footer {
+  background: #fff;
+  border-top: 1px solid var(--border);
+  color: #94a3b8;
+  font-size: .85rem;
+}
+
+/* 倒计时紧迫提示 */
+.timer-urgent { color: var(--danger) !important; font-weight: 700; }

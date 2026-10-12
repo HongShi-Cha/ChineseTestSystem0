@@ -1,0 +1,60 @@
+# ============================================================
+# 国语水平测试系统 - systemd 服务单元（第 10 步）
+#
+# 安装位置：/etc/systemd/system/guoyu.service
+# 改完执行：
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now guoyu
+#   sudo systemctl status guoyu
+#   journalctl -u guoyu -f          # 看实时日志
+# ============================================================
+
+[Unit]
+Description=国语水平测试系统 后端 (FastAPI + uvicorn)
+Documentation=file:/srv/guoyu/backend/deploy/DEPLOY.md
+After=network.target mysqld.service
+Wants=mysqld.service
+
+[Service]
+Type=simple
+User=guoyu
+Group=guoyu
+WorkingDirectory=/srv/guoyu/backend
+
+Environment="PYTHONUNBUFFERED=1"
+Environment="PYTHONIOENCODING=utf-8"
+
+# 关键的两个参数：
+#   --proxy-headers --forwarded-allow-ips=127.0.0.1
+# 让 uvicorn 信任来自本机 nginx 的 X-Forwarded-For，应用才拿得到真实客户端 IP。
+# 少了这两个参数，所有学生都会被算成同一个来源，登录锁定会误伤全校。
+#
+# --workers：多进程能提高并发，但第 10 步的注册限流/评测并发闸门是**进程内**计数，
+# 多开进程等于把阈值放大相应倍数。建议先用 1~2 个 worker，
+# 并把 ISE_MAX_CONCURRENCY 按 worker 数等比调小（例如 2 个 worker 就填 15）。
+ExecStart=/srv/guoyu/backend/.venv/bin/python -m uvicorn app.main:app \
+    --host 127.0.0.1 --port 8080 \
+    --proxy-headers --forwarded-allow-ips=127.0.0.1 \
+    --workers 2 \
+    --timeout-keep-alive 30
+
+Restart=always
+RestartSec=3
+TimeoutStopSec=20
+KillSignal=SIGINT
+
+StandardOutput=append:/srv/guoyu/backend/data/server.out.log
+StandardError=append:/srv/guoyu/backend/data/server.err.log
+
+# ---------- 基础加固 ----------
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+ReadWritePaths=/srv/guoyu/backend/data
+
+[Install]
+WantedBy=multi-user.target

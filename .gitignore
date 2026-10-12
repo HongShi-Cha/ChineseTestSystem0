@@ -1,6 +1,18 @@
-﻿# ---- Python ----
+# ============================================================
+# 国语水平测试系统 - 仓库根 .gitignore
+# ============================================================
+
+# ---------- 敏感配置（含讯飞 Key、数据库密码，绝不入库） ----------
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env.production.example
+
+# ---------- Python ----------
 __pycache__/
 *.py[cod]
+*$py.class
 *.egg-info/
 .venv/
 venv/
@@ -8,41 +20,28 @@ env/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-build/
-dist/
+.coverage
+htmlcov/
 
-# ---- Java / Maven ----
-target/
-*.class
-*.jar
-!.mvn/wrapper/maven-wrapper.jar
+# ---------- 运行时数据 ----------
+data/uploads/
+data/backup/
+data/temp/
+logs/
+*.log
 
-# ---- Node ----
-node_modules/
-npm-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.vite/
-
-# ---- IDE / Editor ----
+# ---------- 编辑器 / IDE ----------
 .idea/
 .vscode/
 *.iml
 *.swp
+*.swo
+
+# ---------- 操作系统 ----------
 .DS_Store
 Thumbs.db
-
-# ---- Env / Secrets ----
-.env
-.env.local
-*.local
-*.log
-
-# ---- OS ----
 desktop.ini
 
-# ---- Project data ----
-*.db
-*.sqlite3
-uploads/
-data/temp/
+# ---------- 其他 ----------
+*.bak
+*.tmp

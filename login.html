@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- Backend connected: 已对接 Python(FastAPI) + MySQL 后端，数据来自 /api/**，字段为 Python 下划线命名。纯前端无后端演示版备份见 js/main.mock.js。 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - 国语水平测试系统</title>
+  <link href="assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="login" class="min-vh-100 d-flex align-items-center py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7 col-lg-5">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-md-5">
+            <div class="text-center mb-4">
+              <img src="assets/logo.svg" alt="Logo" width="64" height="64" class="rounded mb-3">
+              <h4 class="fw-bold text-primary-custom mb-1">国语水平测试系统</h4>
+              <p class="text-secondary small mb-0">Putonghua Proficiency Test System</p>
+            </div>
+
+            <ul class="nav nav-pills nav-fill mb-3" id="loginTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active fw-semibold" id="loginTab" data-bs-toggle="pill" data-bs-target="#tabLogin" type="button" role="tab">登 录</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link fw-semibold" id="registerTab" data-bs-toggle="pill" data-bs-target="#tabRegister" type="button" role="tab">注 册</button>
+              </li>
+            </ul>
+
+            <!-- 登录 / 注册共用的提示条（由 main.js 填充） -->
+            <div id="loginMsg" class="alert alert-danger py-2 small d-none" role="alert"></div>
+
+            <div class="tab-content">
+              <!-- 登录 -->
+              <div class="tab-pane fade show active" id="tabLogin" role="tabpanel">
+                <form id="formLogin" novalidate>
+                  <div class="mb-3">
+                    <label class="form-label">账号（学生用学号 / 管理员用 admin）</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-person"></i></span>
+                      <input type="text" class="form-control" id="loginName" placeholder="请输入学号或工号" value="2024001" autocomplete="username">
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label">密码</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                      <input type="password" class="form-control" id="loginPwd" placeholder="请输入密码" value="123456" autocomplete="current-password">
+                    </div>
+                  </div>
+                  <button type="submit" id="btnLogin" class="btn btn-primary btn-lg w-100 mb-3"><i class="bi bi-box-arrow-in-right me-2"></i>登 录</button>
+                  <div class="text-center small text-secondary">
+                    演示账号：
+                    <a href="#" class="demo-fill text-decoration-none" data-role="student">学生 2024001 / 123456</a> ·
+                    <a href="#" class="demo-fill text-decoration-none" data-role="admin">管理员 admin / admin123</a>
+                  </div>
+                </form>
+              </div>
+
+              <!-- 注册（学生） -->
+              <div class="tab-pane fade" id="tabRegister" role="tabpanel">
+                <form id="formRegister" novalidate>
+                  <div class="row g-3">
+                    <div class="col-6">
+                      <label class="form-label">姓名</label>
+                      <input type="text" class="form-control" id="regName" placeholder="请输入姓名">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">学号（登录账号）</label>
+                      <input type="text" class="form-control" id="regStudentNo" placeholder="请输入学号">
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">班级</label>
+                      <input type="text" class="form-control" id="regClass" placeholder="如：计算机241">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">设置密码</label>
+                      <input type="password" class="form-control" id="regPwd" placeholder="6-20位">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">确认密码</label>
+                      <input type="password" class="form-control" id="regPwd2" placeholder="再次输入密码">
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" id="btnRegister" class="btn btn-primary btn-lg w-100"><i class="bi bi-person-plus me-2"></i>注册账号</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-secondary small mt-3">
+          <a href="index.html" class="text-decoration-none"><i class="bi bi-arrow-left me-1"></i>返回入口页</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

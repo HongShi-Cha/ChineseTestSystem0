@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- Backend connected: 已对接 Python(FastAPI) + MySQL 后端，数据来自 /api/**，字段为 Python 下划线命名。纯前端无后端演示版备份见 js/main.mock.js。 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学生成绩管理 - 国语水平测试系统</title>
+  <link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+</head>
+<body data-page="admin-students">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom sticky-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="dashboard.html"><i class="bi bi-mortarboard-fill me-2"></i>国语水平测试系统 · 管理端</a>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-white small d-none d-md-inline"><i class="bi bi-person-circle me-1"></i>管理员</span>
+        <a class="btn btn-sm btn-outline-light" href="#" data-action="logout"><i class="bi bi-box-arrow-right me-1"></i>退出</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid px-0">
+    <div class="row g-0">
+      <!-- 左侧菜单 -->
+      <div class="col-lg-2 col-md-3 d-none d-md-block">
+        <div class="sidebar p-3">
+          <div class="sidebar-title mb-3 fw-semibold">功 能 菜 单</div>
+          <nav class="nav flex-column">
+            <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2"></i>控制台</a>
+            <a class="nav-link" href="questions.html"><i class="bi bi-journal-text"></i>题库管理</a>
+            <a class="nav-link active" href="students.html"><i class="bi bi-people"></i>学生成绩管理</a>
+          </nav>
+          <hr class="border-light opacity-25 my-3">
+          <nav class="nav flex-column">
+            <a class="nav-link" href="../index.html"><i class="bi bi-house"></i>入口页</a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- 右侧内容区 -->
+      <div class="col-lg-10 col-md-9 px-4 py-4">
+        <h5 class="fw-bold mb-3"><i class="bi bi-people me-2 text-primary-custom"></i>学生成绩管理</h5>
+
+        <div class="card mb-3">
+          <div class="card-body d-flex flex-wrap gap-2 align-items-center">
+            <div class="input-group" style="width: 300px;">
+              <input type="text" class="form-control" id="studentSearch" placeholder="按学号 / 姓名 / 班级搜索">
+              <button class="btn btn-outline-primary" type="button" id="btnSearchStudent"><i class="bi bi-search"></i></button>
+            </div>
+            <span class="text-secondary small ms-auto" id="studentPageInfo"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead><tr><th>学号</th><th>姓名</th><th>班级</th><th>最近考试时间</th><th>总分</th><th>等级</th><th style="width:130px">操作</th></tr></thead>
+              <tbody id="studentTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 弹窗一：某个学生的历次成绩记录 -->
+  <div class="modal fade" id="recordsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary-custom text-white">
+          <h6 class="modal-title"><i class="bi bi-file-earmark-bar-graph me-2"></i><span id="recordsTitle">成绩记录</span></h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="small text-secondary mb-2" id="recordsCount"></div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead><tr><th>交卷时间</th><th>总分</th><th>等级</th><th style="width:130px">操作</th></tr></thead>
+              <tbody id="recordsTbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 弹窗二：某场考试的完整报告 -->
+  <div class="modal fade" id="reportModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary-custom text-white">
+          <h6 class="modal-title"><i class="bi bi-file-earmark-text me-2"></i>考试成绩报告</h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row small mb-3">
+            <div class="col-6 col-md-3 mb-2"><span class="text-secondary">姓名：</span><span class="fw-semibold" id="rpName">-</span></div>
+            <div class="col-6 col-md-3 mb-2"><span class="text-secondary">学号：</span><span class="fw-semibold" id="rpNo">-</span></div>
+            <div class="col-6 col-md-3 mb-2"><span class="text-secondary">班级：</span><span class="fw-semibold" id="rpClass">-</span></div>
+            <div class="col-6 col-md-3 mb-2"><span class="text-secondary">交卷时间：</span><span class="fw-semibold" id="rpDate">-</span></div>
+            <div class="col-6"><span class="text-secondary">总分：</span><span class="fw-bold text-success-score fs-5" id="rpTotal">-</span></div>
+            <div class="col-6"><span class="text-secondary">等级：</span><span id="rpLevel"></span></div>
+          </div>
+          <div id="rpSections"></div>
+          <table class="table table-sm table-bordered mb-0 mt-2">
+            <thead class="table-light"><tr><th>题型</th><th>声母得分率</th><th>韵母得分率</th><th>声调得分率</th></tr></thead>
+            <tbody id="rpDetail"></tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

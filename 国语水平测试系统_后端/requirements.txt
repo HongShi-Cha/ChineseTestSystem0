@@ -1,0 +1,27 @@
+# ============================================================
+# 国语水平测试系统 - 后端依赖
+# 安装：pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+# ============================================================
+
+# Web 框架 + ASGI 服务器
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+
+# 配置 + 校验
+pydantic>=2.7
+pydantic-settings>=2.2
+
+# 数据库
+SQLAlchemy>=2.0
+PyMySQL>=1.1
+cryptography>=42.0
+
+# 会话签名
+itsdangerous>=2.1
+
+# 题库 Excel 导入
+openpyxl>=3.1
+
+# 讯飞语音评测（SCORING_MODE=ise 时需要）
+websocket-client>=1.7

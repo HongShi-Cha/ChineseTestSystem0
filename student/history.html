@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- Backend connected: 已对接 Python(FastAPI) + MySQL 后端，数据来自 /api/**，字段为 Python 下划线命名。纯前端无后端演示版备份见 js/main.mock.js。 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>历史成绩 - 国语水平测试系统</title>
+  <link href="../assets/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+</head>
+<body data-page="history">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom sticky-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="dashboard.html"><i class="bi bi-mortarboard-fill me-2"></i>国语水平测试系统</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navHistory">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navHistory">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="dashboard.html">我的考试</a></li>
+          <li class="nav-item"><a class="nav-link active" href="history.html">历史成绩</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle me-1"></i><span data-user-name>同学</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item text-danger" href="#" data-action="logout"><i class="bi bi-box-arrow-right me-2"></i>退出登录</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <!-- 统计 -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="card"><div class="card-body py-3 text-center">
+          <div class="text-secondary small">考试次数</div><div class="fs-4 fw-bold"><span id="statCount">-</span></div>
+        </div></div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="card"><div class="card-body py-3 text-center">
+          <div class="text-secondary small">最高分</div><div class="fs-4 fw-bold text-success-score" id="statMax">-</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="card"><div class="card-body py-3 text-center">
+          <div class="text-secondary small">最低分</div><div class="fs-4 fw-bold text-danger-time" id="statMin">-</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="card"><div class="card-body py-3 text-center">
+          <div class="text-secondary small">平均分</div><div class="fs-4 fw-bold text-primary-custom" id="statAvg">-</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- 折线图 -->
+    <div class="card mb-4">
+      <div class="card-header"><i class="bi bi-graph-up me-2"></i>历次考试成绩曲线</div>
+      <div class="card-body">
+        <div id="scoreChart" style="height: 360px;"></div>
+        <div id="chartEmpty" class="d-none text-center text-secondary small py-5">
+          <i class="bi bi-inbox fs-1"></i>
+          <p class="mt-3 mb-2">还没有考试记录，暂时画不了曲线</p>
+          <a class="btn btn-primary btn-sm" href="exam.html">去考一场</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 明细表格 -->
+    <div class="card">
+      <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
+        <span><i class="bi bi-table me-2"></i>成绩明细</span>
+        <button class="btn btn-sm btn-outline-primary" data-action="export"><i class="bi bi-download me-1"></i>导出 CSV</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr><th>考试日期</th><th>总分</th><th>等级</th><th>读单字</th><th>读词语</th><th>朗读短文</th><th>命题说话</th><th>操作</th></tr>
+          </thead>
+          <tbody id="historyTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer py-3 mt-4">
+    <div class="container text-center">版权所有 © 2026 国语水平测试系统 V1.0</div>
+  </footer>
+
+  <script src="../assets/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
