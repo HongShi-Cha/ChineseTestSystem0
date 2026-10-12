@@ -1,0 +1,48 @@
+﻿# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# ---- Java / Maven ----
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# ---- Node ----
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.vite/
+
+# ---- IDE / Editor ----
+.idea/
+.vscode/
+*.iml
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---- Env / Secrets ----
+.env
+.env.local
+*.local
+*.log
+
+# ---- OS ----
+desktop.ini
+
+# ---- Project data ----
+*.db
+*.sqlite3
+uploads/
+data/temp/
